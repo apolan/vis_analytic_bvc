@@ -1,0 +1,79 @@
+body {
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    background-color: white;
+}
+
+p, .formHeading, .agency-name  {
+    color: white
+}
+
+.formHeading {
+
+    font-size: 18px;
+
+}
+
+form {
+    position: absolute;
+    color: white
+}
+
+
+#close {
+    float:right;
+    color: white;
+    display:inline-block;
+    padding:2px 5px;
+    background: red;
+    cursor: pointer;
+}
+
+.node-website, .node-agency {
+    font: 10px sans-serif;
+    line-height: 12px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: 2px;
+    cursor: pointer;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.node-agency,  .agency-name {
+    pointer-events: none;
+}
+
+#tooltip {
+    position: absolute;
+    width: 220px;
+    height: auto;
+    padding: 10px;
+    z-index: 1;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip p {
+    margin: 0;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#bdy_acciones {
+    margin: auto;
+    width: 50%;
+}
