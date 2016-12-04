@@ -47,8 +47,8 @@ form {
 
 #tooltip {
     position: absolute;
-    width: 220px;
-    height: auto;
+    width: 650px;
+    height: 600px;
     padding: 10px;
     z-index: 1;
     background-color: white;
@@ -76,4 +76,34 @@ form {
 #bdy_acciones {
     margin: auto;
     width: 50%;
+}
+
+
+svg {
+  font: 10px sans-serif;
+}
+
+.area {
+  fill: #052840;
+  clip-path: url(#clip);
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+  clip-path: url(#clip);
+}
+
+rect.pane {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
 }

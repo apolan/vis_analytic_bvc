@@ -60,15 +60,15 @@
             <div style="margin-top: 10px">
                 <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt"><input type="radio" checked="" name="optradio">Cantidad</label>
                 <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Precio cierre</label>
+                <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Alfabeticamente</label>
             </div>
 
             <div style="margin-top: 20px ">
                 <h4 id="label" style="font-weight:bold ">Informacion de la cantidad de acciones</h4>
             </div>
         </div>
-        <div id="grandparent" class="grandparent" style="width:80%;margin:auto;margin-top:5px;font-size:12pt"> Grandparent </div>
         <div id="viz" style="width:80%;margin:auto;margin-top: 10px" >
-            
+
         </div> 
         <div id="tooltip" class="hidden" >
             <span id='close' onclick='hideTooltip()'>X</span>
@@ -77,6 +77,7 @@
             <p>Monto acciones:  <span id="agency"></span></p>
             <p>Precio cierre: <span id="size"></span></p>
             <p>Fecha: <span id="fecha"></span></p>
+            <div id="chart"></div>
         </div>
         <script src="js/bvc.js"></script>
     </body>
