@@ -5,6 +5,7 @@
  *              - Cambio del header . Adicion wiki del proyecto 
  */
 
+var init = false;
 
 var customeAnimation;
 var buffer = 0;
@@ -126,6 +127,12 @@ var mouseClick = function (d) {
     }
     loadBrush();
 };
+/*
+if(init === false){
+init = true;
+        d3.csv("acciones.csv",
+}*/
+
 
 // Se carga csv
 d3.csv("acciones.csv", function (data) {
