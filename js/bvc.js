@@ -5,7 +5,6 @@
  *              - Cambio del header . Adicion wiki del proyecto 
  */
 
-var init = false;
 
 var customeAnimation;
 var buffer = 0;
@@ -13,6 +12,27 @@ var cellpadding = 1;
 var windowWidth = ((window.innerWidth - buffer) / 12) * 10;
 var windowHeight = window.innerHeight - buffer - 30;
 var transitioning = false;
+var init = false; 
+
+if(init === false){
+init = true;
+	var acciones =  [
+"BBVACOL_HIST.CSV","BCOLOMBIA_HIST.CSV","BIOMAX_HIST.CSV","BMC_HIST.CSV","BOGOTA_HIST.CSV","BVC_HIST.CSV","CARTON_HIST.CSV","CELSIA_HIST.CSV"
+,"CEMARGOS_HIST.CSV","CLH_HIST.CSV","CNEC_HIST.CSV","COLTEJER_HIST.CSV","CONCONCRET_HIST.CSV","CORFERIAS_HIST.CSV","CORFICOLCF_HIST.CSV","ECOPETROL_HIST.CSV","EEB_HIST.CSV","ELCONDOR_HIST.CSV"
+,"EMPAQUES_HIST.CSV","ENKA_HIST.CSV","ESTRA_HIST.CSV","ETB_HIST.CSV","EXITO_HIST.CSV","FABRICATO_HIST.CSV"
+,"FAMILIA_HIST.CSV","GRUBOLIVAR_HIST.CSV","GRUPOARGOS_HIST.CSV","GRUPOAVAL_HIST.CSV","GRUPOSURA_HIST.CSV","HCOLSEL_HIST.CSV"
+,"ICOLCAP_HIST.CSV","ICOLRISK_HIST.CSV","ISAGEN_HIST.CSV","ISA_HIST.CSV","MINEROS_HIST.CSV","NUTRESA_HIST.CSV","OCCIDENTE_HIST.CSV","ODINSA_HIST.CSV"
+,"PAZRIO_HIST.CSV","PFAVAL_HIST.CSV","PFAVH_HIST.CSV","PFBBVACOL_HIST.CSV","PFBCOLOM_HIST.CSV","PFCARPAK_HIST.CSV","PFCEMARGOS_HIST.CSV"
+,"PFCORFICOL_HIST.CSV","PFDAVVNDA_HIST.CSV","PFGRUPOARG_HIST.CSV","PFGRUPSURA_HIST.CSV"
+,"PFVILLASCA_HIST.CSV","PFVILLAS_HIST.CSV","PROMIGAS_HIST.CSV","PROTECCION_HIST.CSV","SOCBOLIVAR_HIST.CSV","SUEEB_HIST.CSV","TERPEL_HIST.CSV","TGLSC_HIST.CSV"
+,"TITAN_HIST.CSV","VALINDUSTR_HIST.CSV","VALOREM_HIST.CSV","VALSIMESA_HIST.CSV","VILLAS_HIST.CSV"
+	];
+var i = 0;
+	for (i = 0; i < acciones.length ; i++) {
+	d3.csv(acciones[i], function(data) {
+	});
+}
+}
 
 var margin = {top: 10, right: 0, bottom: 0, left: 10},
 width = windowWidth - margin.left - margin.right,
@@ -127,14 +147,6 @@ var mouseClick = function (d) {
     }
     loadBrush();
 };
-
-if(init === false){
-init = true;
- d3.csv("'ISAGEN_HIST.csv'", function (data) {
-         console.log("ENTRA HIST");
-});
-}
-
 
 // Se carga csv
 d3.csv("acciones.csv", function (data) {
@@ -317,7 +329,9 @@ function updateColor() {
 
 
 
-
+/**
+Funcion que carga cuando se selecciona cada acción
+*/
 function loadBrush() {
 
     var margin = {top: 10, right: 10, bottom: 100, left: 80},
@@ -387,9 +401,8 @@ function loadBrush() {
             .attr("height", height)
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .call(zoom);
-//d3.csv("data/hist/" + accionTag + "_HIST.csv", type, function (error, data) {
-    
-    d3.csv(accionTag + "_HIST.csv", type, function (error, data) {
+
+    d3.csv(accionTag + "_HIST.CSV", type, function (error, data) {
         x.domain(d3.extent(data.map(function (d) {
             return d.fecha;
         })));
