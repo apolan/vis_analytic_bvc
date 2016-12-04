@@ -378,8 +378,9 @@ function loadBrush() {
             .attr("height", height)
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .call(zoom);
-
-    d3.csv("data/hist/" + accionTag + "_HIST.csv", type, function (error, data) {
+//d3.csv("data/hist/" + accionTag + "_HIST.csv", type, function (error, data) {
+    
+    d3.csv(accionTag + "_HIST.csv", type, function (error, data) {
         x.domain(d3.extent(data.map(function (d) {
             return d.fecha;
         })));
