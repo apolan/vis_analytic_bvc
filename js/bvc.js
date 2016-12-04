@@ -127,11 +127,13 @@ var mouseClick = function (d) {
     }
     loadBrush();
 };
-/*
+
 if(init === false){
 init = true;
-        d3.csv("acciones.csv",
-}*/
+ d3.csv("'ISAGEN_HIST.csv'", function (data) {
+         console.log("ENTRA HIST");
+});
+}
 
 
 // Se carga csv
