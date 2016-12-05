@@ -1,8 +1,8 @@
 /**
- * 
+ *
  * bvc.js Encargada de manejar la visualizalizacion del treemap Manejo de cambios.
  * 20161203 AFP - Adicion formula de color a partir del percentil.
- *              - Cambio del header . Adicion wiki del proyecto 
+ *              - Cambio del header . Adicion wiki del proyecto
  */
 
 
@@ -12,7 +12,7 @@ var cellpadding = 1;
 var windowWidth = ((window.innerWidth - buffer) / 12) * 10;
 var windowHeight = window.innerHeight - buffer - 30;
 var transitioning = false;
-var init = false; 
+var init = false;
 
 if(init === false){
 init = true;
