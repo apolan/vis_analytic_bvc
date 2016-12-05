@@ -233,6 +233,8 @@ d3.csv("acciones.csv", function (data) {
 
 	function updateNodeColors () {
 
+		console.log("check!");
+
 		hideTooltip();
 
 		var count = 0;
@@ -279,7 +281,6 @@ d3.csv("acciones.csv", function (data) {
 
 		d3.select("#numberofsites").text(count);
 	};
-
 
 ///////////////////////////////
 
