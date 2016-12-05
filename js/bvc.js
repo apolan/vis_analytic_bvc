@@ -229,6 +229,60 @@ d3.csv("acciones.csv", function (data) {
 
 ///////////////////////////////
 
+	d3.selectAll(".formCheckbox").on("change", updateNodeColors);
+
+	function updateNodeColors () {
+
+		hideTooltip();
+
+		var count = 0;
+
+		node
+			.transition()
+			.style("background", function(d) {
+
+				var	matchesATopic = false,
+				topics = ["Continuo",
+							"Subasta",
+							"Fijo"],
+				topicsForm = document.forms.formTopic;
+
+				if (d.children) {
+
+					//console.log("has children " + d.key);
+
+				} else {
+
+					for (i = 0; i < topics.length; i++) {
+
+						console.log(topics[i]);
+
+						if (topicsForm[topics[i]].checked == true) {
+
+							//console.log(d[topics[i]]);
+
+							if (d[topics[i]] == "X" ) {
+
+								matchesATopic = true;
+								//console.log(d.key + " " + matchesATopic);
+								count++;
+
+								break;
+							};
+						};
+					}
+				};
+
+				if (matchesATopic) { return highlightColor }
+				else return d.children ? color(d.key) : color(d.parent.key);
+			});
+
+		d3.select("#numberofsites").text(count);
+	};
+});
+
+///////////////////////////////
+
 function hideTooltip() {
     d3.select("#tooltip").classed("hidden", true);
     d3.selectAll("svg").remove();
