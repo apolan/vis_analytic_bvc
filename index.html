@@ -1,88 +1,106 @@
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="js/d3.min.js"></script>
-        <link href="css/bvc.css" rel="stylesheet"/>
 
-        <title>bvc</title>
-    </head>
-    <body >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/d3.min.js"></script>
+    <link href="css/bvc.css" rel="stylesheet" />
 
-        <!-- Static navbar -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Proyecto: BVC</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Propuesta</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sobre el proyecto <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="https://github.com/apolan/vis_analytic_bvc">Wiki</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Equipo</li>
-                                <li><a href="https://github.com/apolan/vis_analytic_bvc/wiki">Contacto</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div><!--/.container-fluid -->
-        </nav>
-        <div id="menu" style="margin-top:20px;margin-left: 60px">
+    <title>bvc</title>
+</head>
 
-            <div class="row">
-                <div class="col-xs-3">
-                    <div class="form-group">
-                        <h5 style="font-weight: bold">Segmento</h5>
-                        <form id="showhidetopics" class="form-control" name="formTopic">
-  <div><label><input class = "formCheckbox" type="checkbox" name="Continuo"> Parliament and politics</label></div>
-  <div><label><input class = "formCheckbox" type="checkbox" name="Subasta"> Passports, travel and tourism</label></div>
-  <div><label><input class = "formCheckbox" type="checkbox" name="Fijo"> Work and jobs</label></div>
-        </form>
-                    </div>
+<body>
+
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Proyecto: BVC</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Propuesta</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sobre el proyecto <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/apolan/vis_analytic_bvc">Wiki</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Equipo</li>
+                            <li><a href="https://github.com/apolan/vis_analytic_bvc/wiki">Contacto</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+    <div id="menu" style="margin-top:20px;margin-left: 60px">
+
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <h5 style="font-weight: bold">Segmento</h5>
+                    <form id="showhidetopics" name="formTopic">
+                        <div>
+                            <label>
+                                <input class="formCheckbox" type="checkbox" name="Continuo"> Parliament and politics</label>
+                        </div>
+                        <div>
+                            <label>
+                                <input class="formCheckbox" type="checkbox" name="Subasta"> Passports, travel and tourism</label>
+                        </div>
+                        <div>
+                            <label>
+                                <input class="formCheckbox" type="checkbox" name="Fijo"> Work and jobs</label>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
             <div style="margin-top: 10px">
-                <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt"><input type="radio" checked="" name="optradio">Cantidad</label>
-                <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Precio cierre</label>
-                <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Alfabeticamente</label>
+                <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt">
+                    <input type="radio" checked="" name="optradio">Cantidad</label>
+                <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt">
+                    <input type="radio" name="optradio">Precio cierre</label>
+                <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt">
+                    <input type="radio" name="optradio">Alfabeticamente</label>
             </div>
+        </div>
 
-            <div style="margin-top: 20px ">
-                <h4 id="label" style="font-weight:bold ">Informacion de la cantidad de acciones</h4>
-            </div>
+        <div style="margin-top: 20px ">
+            <h4 id="label" style="font-weight:bold ">Informacion de la cantidad de acciones</h4>
         </div>
-        <div id="viz" style="width:80%;margin:auto;margin-top: 10px" >
+    </div>
+    <div id="viz" style="width:80%;margin:auto;margin-top: 10px">
 
-        </div>
-        <div id="tooltip" class="hidden" >
-            <span id='close' onclick='hideTooltip()'>X</span>
-            <p><strong id="website"></strong></p>
-            <p><span id="screenshot"></span></p>
-            <p>Monto acciones:  <span id="agency"></span></p>
-            <p>Precio cierre: <span id="size"></span></p>
-            <p>Fecha: <span id="fecha"></span></p>
-            <div id="chart"></div>
-        </div>
-        <script src="js/bvc.js"></script>
-    </body>
+    </div>
+    <div id="tooltip" class="hidden">
+        <span id='close' onclick='hideTooltip()'>X</span>
+        <p><strong id="website"></strong></p>
+        <p><span id="screenshot"></span></p>
+        <p>Monto acciones: <span id="agency"></span></p>
+        <p>Precio cierre: <span id="size"></span></p>
+        <p>Fecha: <span id="fecha"></span></p>
+        <div id="chart"></div>
+    </div>
+    <script src="js/bvc.js"></script>
+</body>
+
 </html>
