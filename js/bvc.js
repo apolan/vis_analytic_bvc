@@ -221,19 +221,19 @@ d3.csv("acciones.csv", function (data) {
     sectorAnimation = function (sector) {
         if (sector === 'Continuo') {
             value = function (d) {
-                if (d.Sector === 'Continuo') {
+                if (d.SECTOR === 'Continuo') {
                     return d.PRECIOCIERRE;
                 }
             };
         } else if (sector === 'Subasta') {
             value = function (d) {
-                if (d.Sector === 'Subasta') {
+                if (d.SECTOR === 'Subasta') {
                     return d.PRECIOCIERRE;
                 }
             };
         } else if (sector === 'Fijo') {
             value = function (d) {
-                if (d.Sector === 'Fijo') {
+                if (d.SECTOR === 'Fijo') {
                     return d.PRECIOCIERRE;
                 }
             };
