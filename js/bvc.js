@@ -160,7 +160,6 @@ d3.csv("acciones.csv", function (data) {
             .data(treemap.nodes)
             .enter().append("div")
             .attr("class", function (d) {
-                //return d.children ? "node-agency" : "node-website";
                 return d.children ? "node-agency" : "node-website";
             })
             .call(position)
@@ -187,7 +186,6 @@ d3.csv("acciones.csv", function (data) {
 
     customeAnimation = function (option) {
 
-        //hideTooltip();
         var value = function () {
             return 1;
         }
@@ -220,10 +218,23 @@ d3.csv("acciones.csv", function (data) {
                 .call(position);
     };
 
-
     customeAnimation();
-
     // Zoom
+
+		sectorAnimation = function (sector) {
+			if (sector === 'Continuo') {
+					value = function (d) {
+						console.log(d.SECTOR);
+							// return d.PRECIOCIERRE;
+					};
+			}
+
+			updateColor();
+			node.data(treemap.value(value).nodes)
+							.transition()
+							.duration(3500)
+							.call(position);
+		}
 
 });
 
@@ -249,6 +260,10 @@ function position() {
 function setModel(tag) {
     modelTag = tag;
     customeAnimation(tag);
+}
+
+function sectorSelector(sector) {
+		sectorAnimation(sector);
 }
 
 /**
