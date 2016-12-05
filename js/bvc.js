@@ -279,7 +279,7 @@ d3.csv("acciones.csv", function (data) {
 
 		d3.select("#numberofsites").text(count);
 	};
-});
+
 
 ///////////////////////////////
 
