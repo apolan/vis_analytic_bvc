@@ -51,11 +51,14 @@
         <div class="row">
             <div class="col-xs-3">
                 <h5 style="font-weight: bold">Segmento</h5>
-                <select class="selectpicker form-control">
-                    <option onclick="sectorSelector('Continuo');">Continuo</option>
-                    <option onclick="sectorSelector('Subasta');">Subasta</option>
-                    <option onclick="sectorSelector('Fijo');">Fijo</option>
-                </select>
+                <div style="margin-top: 10px">
+                    <label onclick="sectorSelector('Continuo');" class="radio-inline " style="font-size:11pt">
+                        <input type="radio" checked="" name="optradio">Contínuo</label>
+                    <label onclick="sectorSelector('Subasta');" class="radio-inline" style="font-size:11pt">
+                        <input type="radio" name="optradio">Subasta</label>
+                    <label onclick="sectorSelector('Fijo');" class="radio-inline" style="font-size:11pt">
+                        <input type="radio" name="optradio">Fijo</label>
+                </div>
             </div>
         </div>
         <br>
@@ -64,7 +67,7 @@
         <br>
         <div class="row">
             <h5 style="font-weight: bold">Datos a mostrar</h5>
-            <div style="margin-top: 20px">
+            <div style="margin-top: 10px">
                 <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt">
                     <input type="radio" checked="" name="optradio">Cantidad</label>
                 <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt">
