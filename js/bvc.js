@@ -229,6 +229,13 @@ d3.csv("acciones.csv", function (data) {
             value = function (d) {
                 return d.MONTO;
             };
+        } else if (option === 'variación') {
+            value = function (d) {
+                if (d.VAR < 0) {
+                    return d.VAR * -1;
+                }
+                return d.VAR;
+            };
         } else if (option === 'alfabeticamente') {
             value = function (d) {
                 return 50;
