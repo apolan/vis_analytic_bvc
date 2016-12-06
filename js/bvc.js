@@ -1,8 +1,8 @@
 /**
- * 
+ *
  * bvc.js Encargada de manejar la visualizalizacion del treemap Manejo de cambios.
  * 20161203 AFP - Adicion formula de color a partir del percentil.
- *              - Cambio del header . Adicion wiki del proyecto 
+ *              - Cambio del header . Adicion wiki del proyecto
  */
 
 
@@ -34,7 +34,7 @@ if (init === false) {
                 , "PFVILLASCA_HIST.CSV", "PFVILLAS_HIST.CSV", "PROMIGAS_HIST.CSV", "PROTECCION_HIST.CSV", "SOCBOLIVAR_HIST.CSV", "SUEEB_HIST.CSV", "TERPEL_HIST.CSV", "TGLSC_HIST.CSV"
                 , "TITAN_HIST.CSV", "VALINDUSTR_HIST.CSV", "VALOREM_HIST.CSV", "VALSIMESA_HIST.CSV", "VILLAS_HIST.CSV"
     ];
-    
+
     var i = 0;
     for (i = 0; i < acciones.length; i++) {
         d3.csv("data/hist/" + acciones[i], function (data) {
@@ -372,7 +372,7 @@ function updateColor() {
 
     arrayAcciones = [];
     srt.each(function (d) {
-        //console.log((modelTag))
+        console.log((modelTag))
         if (modelTag === "cantidad") {
             if (d.CANTIDAD > 0) {
                 arrayAcciones.push(d.CANTIDAD);
