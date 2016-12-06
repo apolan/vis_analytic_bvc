@@ -176,11 +176,11 @@ var mouseClick = function (d) {
             .text(numeral(d.VAR).format('0,0'));
 
         if (modelTag === "cantidad") {
-            d3.select("#tooltipA #var").text('la cantidad');
+            d3.select("#tooltipA #chatTitle").text('la cantidad');
         } else if (modelTag === "preciocierre") {
-            d3.select("#tooltipA #var").text('el precio de cierre');
+            d3.select("#tooltipA #chatTitle").text('el precio de cierre');
         } else if (modelTag === "variacion") {
-            d3.select("#tooltipA #var").text('la variación');
+            d3.select("#tooltipA #chatTitle").text('la variación');
         }
         d3.select("#tooltipA #fecha")
             .text(d.FECHA);
