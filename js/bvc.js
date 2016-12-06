@@ -392,7 +392,11 @@ function updateColor() {
     d3.selectAll('.node-website')
             .style("background", function (d) {  // Adicion id al nodo
 							if (modelTag === "variación") {
-								console.log(d);
+								if(d.VAR<0){
+									return  "#B40404";
+								} else {
+									return  "#04B404";
+								}
 							}
                 if (modelTag === "cantidad") {
                     if (Number(d.CANTIDAD) > Number(colorLevel_1)) {
