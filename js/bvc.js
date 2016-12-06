@@ -10,7 +10,7 @@ var customeAnimation;
 var buffer = 0;
 var cellpadding = 1;
 var windowWidth = ((window.innerWidth - buffer) / 12) * 10;
-var windowHeight = window.innerHeight - buffer - 100;
+var windowHeight = window.innerHeight - buffer - 250;
 var transitioning = false;
 var init = false;
 var dataset = "";
