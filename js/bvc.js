@@ -173,7 +173,7 @@ var mouseClick = function (d) {
         d3.select("#tooltipA #size")
             .text("$" + numeral(d.PRECIOCIERRE).format('0,0'));
         d3.select("#tooltipA #var")
-            .text(numeral(d.VAR).format('0,0'));
+            .text(numeral(d.VAR).format('0,0') + '%');
 
         if (modelTag === "cantidad") {
             d3.select("#tooltipA #chatTitle").text('la cantidad');
