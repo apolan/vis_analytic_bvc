@@ -51,11 +51,11 @@
                 <h5 style="font-weight: bold">Segmento</h5>
                 <div style="margin-top: 10px">
                     <label onclick="sectorSelector('Continuo');" class="radio-inline " style="font-size:11pt">
-                        <input type="radio" checked="" name="optradio">Contínuo</label>
+                        <input type="radio" checked="" name="segmentradio">Contínuo</label>
                     <label onclick="sectorSelector('Subasta');" class="radio-inline" style="font-size:11pt">
-                        <input type="radio" name="optradio">Subasta</label>
+                        <input type="radio" name="segmentradio">Subasta</label>
                     <label onclick="sectorSelector('Fijo');" class="radio-inline" style="font-size:11pt">
-                        <input type="radio" name="optradio">Fijo</label>
+                        <input type="radio" name="segmentradio">Fijo</label>
                 </div>
                 <div class="col-xs-4">
                     <!--<div class="form-group">
@@ -84,9 +84,27 @@
                     <button type="button" onclick="" class="btn btn-default">Comparar Acciones</button>
                 </div>
             </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <h5 style="font-weight: bold">Datos a mostrar</h5>
+            <div style="margin-top: 10px">
+                <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt">
+                    <input type="radio" checked="" name="optradio">Cantidad</label>
+                <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt">
+                    <input type="radio" name="optradio">Precio cierre</label>
+                    <label onclick="setModel('variación');" class="radio-inline" style="font-size:11pt">
+                        <input type="radio" name="optradio">Variación</label>
+                <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt">
+                    <input type="radio" name="optradio">Alfabeticamente</label>
+            </div>
+        </div>
 
-            <div style="margin-top: 20px ">
-                <h4 id="label" style="font-weight:bold ">Informacion de la cantidad de acciones</h4>
+        <div style="margin-top: 20px ">
+            <h4 id="label" style="font-weight:bold ">Informacion de la cantidad de acciones</h4>
             </div>
         </div>
         <div id="viz" style="width:80%;margin:auto;margin-top: 10px">
