@@ -172,6 +172,8 @@ var mouseClick = function (d) {
             .text(d.MONTO);
         d3.select("#tooltipA #size")
             .text("$" + numeral(d.PRECIOCIERRE).format('0,0'));
+        d3.select("#tooltipA #var")
+            .text( numeral(d.VAR).format('0,0'));
         d3.select("#tooltipA #fecha")
             .text(d.FECHA);
         d3.select("#tooltipA").classed("hidden", false);
@@ -224,7 +226,7 @@ d3.csv("acciones.csv", function (data) {
         .attr("class", "agency-name")
         .text(function (d) {
             if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
-              return d.parent.key;
+                return d.parent.key;
             }
         }).style("z-index", function (d) {
             if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
