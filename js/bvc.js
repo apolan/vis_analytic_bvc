@@ -173,7 +173,15 @@ var mouseClick = function (d) {
         d3.select("#tooltipA #size")
             .text("$" + numeral(d.PRECIOCIERRE).format('0,0'));
         d3.select("#tooltipA #var")
-            .text( numeral(d.VAR).format('0,0'));
+            .text(numeral(d.VAR).format('0,0'));
+
+        if (modelTag === "cantidad") {
+            d3.select("#tooltipA #var").text('la cantidad');
+        } else if (modelTag === "preciocierre") {
+            d3.select("#tooltipA #var").text('el precio de cierre');
+        } else if (modelTag === "variacion") {
+            d3.select("#tooltipA #var").text('la variación');
+        }
         d3.select("#tooltipA #fecha")
             .text(d.FECHA);
         d3.select("#tooltipA").classed("hidden", false);
@@ -262,18 +270,6 @@ d3.csv("acciones.csv", function (data) {
                     return d.CANTIDAD;
                 } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
                     return d.CANTIDAD;
-                } else {
-                    return 0;
-                }
-            };
-        } else if (modelTag === 'monto') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return d.MONTO;
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return d.MONTO;
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return d.MONTO;
                 } else {
                     return 0;
                 }
