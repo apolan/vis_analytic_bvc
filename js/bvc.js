@@ -62,23 +62,28 @@ var sectorTag = "continuo";
 var accionTag = "";
 var accionColorTag = "";
 var highlightColor = "red";
-var treemap = d3.layout.treemap()
-    .size([width, height])
-    .sticky(true)
-    .padding(cellpadding)
-    .mode("squarify") //default
-    .value(function (d) {
-        return 1;
-    })
-    .children(function (d) {
-        return d.values;
-    })
-    //.ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
-;
-var div = d3.select("#viz")
-    .style("position", "relative")
-    .style("width", (width + margin.left + margin.right) + "px")
-    .style("height", (height + margin.top + margin.bottom) + "px");
+function createTreemap() {
+
+  var treemap = d3.layout.treemap()
+      .size([width, height])
+      .sticky(true)
+      .padding(cellpadding)
+      .mode("squarify") //default
+      .value(function (d) {
+          return 1;
+      })
+      .children(function (d) {
+          return d.values;
+      })
+      //.ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
+  ;
+  var div = d3.select("#viz")
+      .style("position", "relative")
+      .style("width", (width + margin.left + margin.right) + "px")
+      .style("height", (height + margin.top + margin.bottom) + "px");
+
+}
+createTreemap();
 
 // VARIABLES COLOR
 var arrayAcciones = [];
@@ -360,6 +365,7 @@ function setModel(tag) {
     hideTooltip();
     modelTag = tag;
     customeAnimation(tag);
+    createTreemap();
     csvLoad();
 }
 
