@@ -14,6 +14,9 @@ var windowHeight = window.innerHeight - buffer - 30;
 var transitioning = false;
 var init = false;
 
+
+
+var dataset = "";
 /*
  * Atributo que guarda las acciones guardadas
  * @type Array
@@ -24,23 +27,25 @@ var acciones = [];
 if (init === false) {
     init = true;
     var acciones = [
-        "BBVACOL_HIST.CSV", "BCOLOMBIA_HIST.CSV", "BIOMAX_HIST.CSV", "BMC_HIST.CSV", "BOGOTA_HIST.CSV", "BVC_HIST.CSV", "CARTON_HIST.CSV", "CELSIA_HIST.CSV"
-                , "CEMARGOS_HIST.CSV", "CLH_HIST.CSV", "CNEC_HIST.CSV", "COLTEJER_HIST.CSV", "CONCONCRET_HIST.CSV", "CORFERIAS_HIST.CSV", "CORFICOLCF_HIST.CSV", "ECOPETROL_HIST.CSV", "EEB_HIST.CSV", "ELCONDOR_HIST.CSV"
-                , "EMPAQUES_HIST.CSV", "ENKA_HIST.CSV", "ESTRA_HIST.CSV", "ETB_HIST.CSV", "EXITO_HIST.CSV", "FABRICATO_HIST.CSV"
-                , "FAMILIA_HIST.CSV", "GRUBOLIVAR_HIST.CSV", "GRUPOARGOS_HIST.CSV", "GRUPOAVAL_HIST.CSV", "GRUPOSURA_HIST.CSV", "HCOLSEL_HIST.CSV"
-                , "ICOLCAP_HIST.CSV", "ICOLRISK_HIST.CSV", "ISAGEN_HIST.CSV", "ISA_HIST.CSV", "MINEROS_HIST.CSV", "NUTRESA_HIST.CSV", "OCCIDENTE_HIST.CSV", "ODINSA_HIST.CSV"
-                , "PAZRIO_HIST.CSV", "PFAVAL_HIST.CSV", "PFAVH_HIST.CSV", "PFBBVACOL_HIST.CSV", "PFBCOLOM_HIST.CSV", "PFCARPAK_HIST.CSV", "PFCEMARGOS_HIST.CSV"
-                , "PFCORFICOL_HIST.CSV", "PFDAVVNDA_HIST.CSV", "PFGRUPOARG_HIST.CSV", "PFGRUPSURA_HIST.CSV"
-                , "PFVILLASCA_HIST.CSV", "PFVILLAS_HIST.CSV", "PROMIGAS_HIST.CSV", "PROTECCION_HIST.CSV", "SOCBOLIVAR_HIST.CSV", "SUEEB_HIST.CSV", "TERPEL_HIST.CSV", "TGLSC_HIST.CSV"
-                , "TITAN_HIST.CSV", "VALINDUSTR_HIST.CSV", "VALOREM_HIST.CSV", "VALSIMESA_HIST.CSV", "VILLAS_HIST.CSV"
+        "AAPL_HIST.CSV", "AMZN_HIST.CSV", "BAC_HIST.CSV", "BBH_HIST.CSV", "BBVACOL_HIST.CSV", "BCOLOMBIA_HIST.CSV", "BIOMAX_HIST.CSV",
+        "BMC_HIST.CSV", "BOGOTA_HIST.CSV", "BVC_HIST.CSV", "CARTON_HIST.CSV", "CELSIA_HIST.CSV", "CEMARGOS_HIST.CSV", "CLH_HIST.CSV", "CNEC_HIST.CSV",
+        "COLTEJER_HIST.CSV", "CONCONCRET_HIST.CSV", "CORFERIAS_HIST.CSV", "CORFICOLCF_HIST.CSV", "C_HIST.CSV", "ECOPETROL_HIST.CSV", "EDATEL_HIST.CSV",
+        "EEB_HIST.CSV", "ELCONDOR_HIST.CSV", "ENKA_HIST.CSV", "EPSA_HIST.CSV", "ESTRA_HIST.CSV", "ETB_HIST.CSV", "EXITO_HIST.CSV", "FABRICATO_HIST.CSV",
+        "FAMILIA_HIST.CSV", "GOOGL_HIST.CSV", "GRUBOLIVAR_HIST.CSV", "GRUPOARGOS_HIST.CSV", "GRUPOAVAL_HIST.CSV", "GRUPOSURA_HIST.CSV", "GURU_HIST.CSV",
+        "HCOLSEL_HIST.CSV", "ICOLCAP_HIST.CSV", "ISAGEN_HIST.CSV", "ISA_HIST.CSV", "JPM_HIST.CSV", "MANCEMENTO_HIST.CSV", "MINEROS_HIST.CSV", "NUTRESA_HIST.CSV",
+        "OCCIDENTE_HIST.CSV", "ODINSA_HIST.CSV", "PAZRIO_HIST.CSV", "PFAVAL_HIST.CSV", "PFAVH_HIST.CSV", "PFBBVACOL_HIST.CSV", "PFBCOLOM_HIST.CSV", "PFCARPAK_HIST.CSV",
+        "PFCEMARGOS_HIST.CSV", "PFCORFICOL_HIST.CSV", "PFDAVVNDA_HIST.CSV", "PFE_HIST.CSV", "PFGRUPOARG_HIST.CSV", "PFGRUPSURA_HIST.CSV", "PFVILLASCA_HIST.CSV",
+        "PFVILLAS_HIST.CSV", "POPULAR_HIST.CSV", "PPH_HIST.CSV", "PREC_HIST.CSV", "PROMIGAS_HIST.CSV", "PROTECCION_HIST.CSV", "RSX_HIST.CSV", "SDIV_HIST.CSV",
+        "SOCBOLIVAR_HIST.CSV", "TABLEMAC_HIST.CSV", "TERPEL_HIST.CSV", "TGLSC_HIST.CSV", "TITAN_HIST.CSV", "VALINDUSTR_HIST.CSV", "VALOREM_HIST.CSV",
+        "VALSIMESA_HIST.CSV", "VILLAS_HIST.CSV"
     ];
-    
+
     var i = 0;
     for (i = 0; i < acciones.length; i++) {
         d3.csv("data/hist/" + acciones[i], function (data) {
         });
     }
-    acciones=[];
+    acciones = [];
 }
 
 var margin = {top: 10, right: 0, bottom: 0, left: 10},
@@ -458,7 +463,13 @@ function loadBrush() {
                 return x(d.fecha);
             }).y0(height)
             .y1(function (d) {
-                return y(d.Cantidad);
+                if (modelTag === "cantidad") {
+                    return y(d.Cantidad);
+                } else if (modelTag === "preciocierre") {
+                    return y(d.UltimoPrecio);
+                } else {
+                    return y(d.Cantidad);
+                }
             });
 
     var area2 = d3.svg.area()
@@ -467,7 +478,13 @@ function loadBrush() {
                 return x2(d.fecha);
             }).y0(height2)
             .y1(function (d) {
-                return y2(d.Cantidad);
+                if (modelTag === "cantidad") {
+                    return y2(d.Cantidad);
+                } else if (modelTag === "preciocierre") {
+                    return y2(d.UltimoPrecio);
+                } else {
+                    return y2(d.Cantidad);
+                }
             });
 
     var svg = d3.select("#chart").append("svg")
@@ -503,7 +520,13 @@ function loadBrush() {
             return d.fecha;
         })));
         y.domain([0, d3.max(data.map(function (d) {
-                return d.Cantidad;
+                if (modelTag === "cantidad") {
+                    return d.Cantidad;
+                } else if (modelTag === "preciocierre") {
+                    return d.UltimoPrecio;
+                } else {
+                    return d.Cantidad;
+                }
             }))]);
         x2.domain(x.domain());
         y2.domain(y.domain());
