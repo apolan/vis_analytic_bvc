@@ -62,6 +62,7 @@ var sectorTag = "continuo";
 var accionTag = "";
 var accionColorTag = "";
 var highlightColor = "red";
+
 function createTreemap() {
 
   var treemap = d3.layout.treemap()
@@ -74,13 +75,28 @@ function createTreemap() {
       })
       .children(function (d) {
           return d.values;
-      })
-      //.ratio(height / width * 0.5 * (1 + Math.sqrt(5)))
-  ;
+      });
   var div = d3.select("#viz")
       .style("position", "relative")
       .style("width", (width + margin.left + margin.right) + "px")
       .style("height", (height + margin.top + margin.bottom) + "px");
+
+      var grandparent = div.append("g")
+          .attr("class", "grandparent");
+      grandparent.append("rect")
+          .attr("y", -margin.top)
+          .attr("width", width)
+          .attr("height", margin.top);
+      grandparent.append("text")
+          .attr("x", 6)
+          .attr("y", 6 - margin.top)
+          .attr("dy", ".75em");
+      var x = d3.scale.linear()
+          .domain([0, width])
+          .range([0, width]);
+      var y = d3.scale.linear()
+          .domain([0, height])
+          .range([0, height]);
 
 }
 createTreemap();
@@ -95,22 +111,7 @@ var colorLevel_4;
 var colorLevel_5;
 // VARIABLES ZOOM
 //var grandparent = document.getElementById("grandparent");
-var grandparent = div.append("g")
-    .attr("class", "grandparent");
-grandparent.append("rect")
-    .attr("y", -margin.top)
-    .attr("width", width)
-    .attr("height", margin.top);
-grandparent.append("text")
-    .attr("x", 6)
-    .attr("y", 6 - margin.top)
-    .attr("dy", ".75em");
-var x = d3.scale.linear()
-    .domain([0, width])
-    .range([0, width]);
-var y = d3.scale.linear()
-    .domain([0, height])
-    .range([0, height]);
+
 
 
 var clickCount = 0;
