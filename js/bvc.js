@@ -372,7 +372,6 @@ function updateColor() {
 
     arrayAcciones = [];
     srt.each(function (d) {
-        console.log((modelTag))
         if (modelTag === "cantidad") {
             if (d.CANTIDAD > 0) {
                 arrayAcciones.push(d.CANTIDAD);
@@ -392,6 +391,9 @@ function updateColor() {
 
     d3.selectAll('.node-website')
             .style("background", function (d) {  // Adicion id al nodo
+							if (modelTag === "variación") {
+								console.log(d);
+							}
                 if (modelTag === "cantidad") {
                     if (Number(d.CANTIDAD) > Number(colorLevel_1)) {
                         //console.log("entra 1 " + d.CANTIDAD + " " + colorLevel_1);
