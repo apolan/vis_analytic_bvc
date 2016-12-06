@@ -60,11 +60,12 @@
                     <div class="form-group">
                         <h5 style="font-weight: bold">Segmento</h5>
                         <select class="selectpicker form-control">
-                            <option>Continuo</option>
+                            <option>Continua</option>
                             <option>Subasta</option>
-                            <option>Fijo</option>
+                            <option>MGC</option>
+                            <option>ETF</option>
                         </select>
-                    </div>
+                    </div> 
                     <div style="margin-top: 10px">
                         <h5 style="font-weight: bold">Organización de acciones:</h5>
                         <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Alfabéticamente</label>
@@ -73,7 +74,7 @@
                         <label onclick="setModel('variacion');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Variación</label>
                     </div>
                 </div>
-                <div  class="col-xs-4">
+                <div  class="col-xs-4">			
                     <h5 style="font-weight: bold">Acciones guardadas</h5>
                     <div id="tablero_acciones" style="display: inline">
                         <h5 class="txt_gray">No hay acciones guardas</h5>
@@ -109,7 +110,6 @@
                     <button type="button" id="btnGuardar" onclick="guardarAccion()" class="btn btn-info">Guardar acción</button>
                 </div>
             </div>
-            <br><br>
             <div class="row">
               <h5 style="text-align: center; font-weight: bold">Visualizacion de <span id="chatTitle"></span></h5>
             </div>
@@ -125,8 +125,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <p style="text-align: center;margin-top: 5px">Monto acciones: <span id="agency"></span></p>
-                    <p style="text-align: center;margin-top: 5px">Precio cierre: <span id="size"></span></p>
+                    <p style="text-align: center;margin-top: 5px;font-weight: bold">Descripción Acción: <span id="agencyB"></span></p>
+                    <p style="text-align: center;margin-top: 5px">Razón Social: <span id="sizeA"></span></p>
                 </div>
             </div>
             <div class="row" style="margin-top: 15px">
