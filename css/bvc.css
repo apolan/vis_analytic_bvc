@@ -45,7 +45,7 @@ form {
     pointer-events: none;
 }
 
-#tooltip {
+#tooltipA {
     position: absolute;
     width: 650px;
     height: 600px;
@@ -60,11 +60,38 @@ form {
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
-#tooltip.hidden {
+#tooltipA.hidden {
     display: none;
 }
 
-#tooltip p {
+#tooltipA p {
+    margin: 0;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#tooltipB {
+    position: absolute;
+    width: 400px;
+    height: 140px;
+    padding: 10px;
+    z-index: 1;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#tooltipB.hidden {
+    display: none;
+}
+
+#tooltipB p {
     margin: 0;
     color: black;
     font-family: sans-serif;
@@ -128,7 +155,7 @@ rect.pane {
 
 
 path { 
-    stroke: steelblue;
+    
     stroke-width: 2;
     fill: none;
 }

@@ -50,8 +50,11 @@ width = windowWidth - margin.left - margin.right,
 //var color = d3.scale.category20b();
 //var color = d3.scale.ordinal().range([ "#efedf5", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba", "#6a51a3", "#54278f", "#3f007d"]);   //colorbrewer purples
 
+/*
+ * Variables globales de los modelos
+ */
 var modelTag = "cantidad";
-var sectorTag = "variable";
+var sectorTag = "continuo";
 var accionTag = "";
 var accionColorTag = "";
 var highlightColor = "red";
@@ -70,9 +73,8 @@ var treemap = d3.layout.treemap()
         ;
 var div = d3.select("#viz")
         .style("position", "relative")
-        //.attr("class", "bdy_acciones")
         .style("width", (width + margin.left + margin.right) + "px")
-        .style("height", (height + margin.top + margin.bottom) + "px")
+        .style("height", (height + margin.top + margin.bottom) + "px");
 
 // VARIABLES COLOR
 var arrayAcciones = [];
@@ -100,46 +102,77 @@ var x = d3.scale.linear()
 var y = d3.scale.linear()
         .domain([0, height])
         .range([0, height]);
+
+
 var clickCount = 0;
+/**
+ * Funcion que establece las opciones del tooltip
+ * @param {type} d
+ * @returns {undefined}
+ */
 var mouseClick = function (d) {
     // Revisa si la accion ya esta en la lista de guardadas
-    if (acciones.indexOf(accionTag) == -1) {
+    hideTooltip();
+    accionTag = d.NEMO;
+    var find = false;
+
+    for (i = 0; i < acciones.length; i++) {
+        if (acciones[i].accion === d.NEMO) {
+            find = true;
+            break;
+        }
+    }
+
+    if (!find) {
         document.getElementById("btnGuardar").disabled = false;
     } else {
         document.getElementById("btnGuardar").disabled = true;
     }
 
-
-    hideTooltip();
     var xPosition = d3.event.pageX;
     var yPosition = d3.event.pageY;
-    accionTag = d.NEMO;
+
     accionColorTag = $("#" + accionTag).css("background-color");
     // stop tooltip going off the right or bottom side of screen
     if (xPosition > (width / 2)) {
         xPosition = xPosition - 242;
     } else
         xPosition = xPosition + 25;
+
     if (yPosition > (height / 2)) {
         yPosition = yPosition - 200;
     }
-    ;
+
     clickCount++;
     d3.selectAll(".node-website").style("box-shadow", "none");
     d3.select(this).style("box-shadow", "inset 0 0 10px white");
-    d3.select("#tooltip")
-            .style("left", xPosition + "px")
-            .style("top", yPosition + "px")
-            .style("z-index", 100);
-    d3.select("#tooltip #website")
-            .html('<a href="http://' + d.NEMO + '" target="_blank">' + d.NEMO + '</a>');
-    d3.select("#tooltip #agency")
-            .text(d.MONTO);
-    d3.select("#tooltip #size")
-            .text("$" + numeral(d.PRECIOCIERRE).format('0,0'));
-    d3.select("#tooltip #fecha")
-            .text(d.FECHA);
-    d3.select("#tooltip").classed("hidden", false);
+
+    if (modelTag === "alfabeticamente") {
+        d3.select("#tooltipB")
+                .style("left", xPosition + "px")
+                .style("top", yPosition + "px")
+                .style("z-index", 100);
+        d3.select("#tooltipB #website")
+                .html('<a href="http://' + d.NEMO + '" target="_blank">' + d.NEMO + '</a>');
+        d3.select("#tooltipB #agency")
+                .text(d.MONTO);
+        d3.select("#tooltipB").classed("hidden", false);
+    } else {
+        d3.select("#tooltipA")
+                .style("left", xPosition + "px")
+                .style("top", yPosition + "px")
+                .style("z-index", 100);
+        d3.select("#tooltipA #website")
+                .html('<a href="http://' + d.NEMO + '" target="_blank">' + d.NEMO + '</a>');
+        d3.select("#tooltipA #agency")
+                .text(d.MONTO);
+        d3.select("#tooltipA #size")
+                .text("$" + numeral(d.PRECIOCIERRE).format('0,0'));
+        d3.select("#tooltipA #fecha")
+                .text(d.FECHA);
+        d3.select("#tooltipA").classed("hidden", false);
+    }
+
     if (clickCount === 1) {
         singleClickTimer = setTimeout(function () {
             clickCount = 0;
@@ -197,80 +230,130 @@ d3.csv("acciones.csv", function (data) {
 
     customeAnimation = function (option) {
 
-        //hideTooltip();
         var value = function () {
             return 1;
         }
 
-        if (option === 'preciocierre') {
+        // Paso 1. A que segmento pertenece: fijo | continuo | subasta 
+        if (modelTag === 'preciocierre') {
             value = function (d) {
-                return d.PRECIOCIERRE;
-            };
-        } else if (option === 'cantidad') {
-            value = function (d) {
-                return d.CANTIDAD;
-            };
-        } else if (option === 'monto') {
-            value = function (d) {
-                return d.MONTO;
-            };
-        } else if (option === 'variacion') {
-            value = function (d) {
-                if (d.VAR < 0) {
-                    return d.VAR * -1;
+                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                    return d.PRECIOCIERRE;
+                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                    return d.PRECIOCIERRE;
+                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                    return d.PRECIOCIERRE;
+                } else {
+                    return 0;
                 }
-                return d.VAR;
             };
-        } else if (option === 'alfabeticamente') {
+        } else if (modelTag === 'cantidad') {
             value = function (d) {
-                return 50;
+                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                    return d.CANTIDAD;
+                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                    return d.CANTIDAD;
+                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                    return d.CANTIDAD;
+                } else {
+                    return 0;
+                }
+            };
+        } else if (modelTag === 'monto') {
+            value = function (d) {
+                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                    return d.MONTO;
+                    ;
+                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                    return d.MONTO;
+                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                    return d.MONTO;
+                } else {
+                    return 0;
+                }
+            };
+        } else if (modelTag === 'variacion') {
+            value = function (d) {
+                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                    return Math.abs(d.VAR);
+                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                    return Math.abs(d.VAR);
+                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                    return Math.abs(d.VAR);
+                } else {
+                    return 0;
+                }
+            };
+            /*value = function (d) {
+             if (d.VAR < 0) {
+             return d.VAR * -1;
+             }
+             return d.VAR;
+             };/*/
+        } else if (modelTag === 'alfabeticamente') {
+            value = function (d) {
+                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                    return 1;
+                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                    return 1;
+                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                    return 1;
+                } else {
+                    return 0;
+                }
             };
         } else {
             value = function (d) {
                 return d.CANTIDAD;
             };
         }
+
+
         updateColor();
         node.data(treemap.value(value).nodes)
                 .transition()
                 .duration(3500)
                 .call(position);
     };
+
     customeAnimation();
     // Zoom
 
-    sectorAnimation = function (sector) {
-        if (sector === 'Continuo') {
-            value = function (d) {
-                if (d.SECTOR === 'Continuo') {
-                    return d.PRECIOCIERRE;
-                }
-            };
-        } else if (sector === 'Subasta') {
-            value = function (d) {
-                if (d.SECTOR === 'Subasta') {
-                    return d.PRECIOCIERRE;
-                }
-            };
-        } else if (sector === 'Fijo') {
-            value = function (d) {
-                if (d.SECTOR === 'Fijo') {
-                    return d.PRECIOCIERRE;
-                }
-            };
-        }
-
-        updateColor();
-        node.data(treemap.value(value).nodes)
-                .transition()
-                .duration(3500)
-                .call(position);
-    }
+    /* sectorAnimation = function (sector) {
+     if (sector === 'Continuo') {
+     value = function (d) {
+     if (d.SECTOR === 'Continuo') {
+     return d.PRECIOCIERRE;
+     }
+     };
+     } else if (sector === 'Subasta') {
+     value = function (d) {
+     if (d.SECTOR === 'Subasta') {
+     return d.PRECIOCIERRE;
+     }
+     };
+     } else if (sector === 'Fijo') {
+     value = function (d) {
+     if (d.SECTOR === 'Fijo') {
+     return d.PRECIOCIERRE;
+     }
+     };
+     }
+     
+     updateColor();
+     node.data(treemap.value(value).nodes)
+     .transition()
+     .duration(3500)
+     .call(position);
+     }*/
 });
-///////////////////////////////
-
+/**
+ *  Metodo que esconde los diferentes tooltip de la pagina
+ * @returns {undefined}
+ */
 function hideTooltip() {
-    d3.select("#tooltip").classed("hidden", true);
+    d3.select("#tooltipA").classed("hidden", true);
+    d3.select("#tooltipB").classed("hidden", true);
     d3.selectAll("svg").remove();
 }
 
@@ -297,7 +380,8 @@ function setModel(tag) {
 function sectorSelector(sector) {
     hideTooltip();
     sectorTag = sector;
-    sectorAnimation(sector);
+    //sectorAnimation(sector);
+    customeAnimation(sector);
 }
 
 /**
@@ -318,14 +402,14 @@ function guardarAccion() {
         var dv = document.createElement("div");
         dv.setAttribute("class", "accionDiv");
         dv.setAttribute("id", "id" + accionTag);
-        dv.setAttribute("style", "background:" + color + ";float:left;margin-right:8px;margin-top:8px");
+        dv.setAttribute("style", "background:" + color + ";float:left;margin-right:8px;margin-top:8px;border-radius: 5px;");
         /*dv.onclick = function () {
-            for (i = 0; i < acciones.length; i++) {
-                if(acciones[i].accion === accionTag){
-                    
-                }
-            }
-        };*/
+         for (i = 0; i < acciones.length; i++) {
+         if(acciones[i].accion === accionTag){
+         
+         }
+         }
+         };*/
         var p = document.createElement("p");
         var node = document.createTextNode(accionTag);
         p.setAttribute("class", "accionAdd");
@@ -460,7 +544,7 @@ function updateColor() {
 }
 
 /**
- Funcion que carga cuando se selecciona cada acción
+ Funcion que carga cuando se selecciona cada acción del tooltip
  */
 function loadBrush() {
 
@@ -550,7 +634,8 @@ function loadBrush() {
         x.domain(d3.extent(data.map(function (d) {
             return d.fecha;
         })));
-        y.domain([0, d3.max(data.map(function (d) {
+        y.domain([0,
+            d3.max(data.map(function (d) {
                 if (modelTag === "cantidad") {
                     return d.Cantidad;
                 } else if (modelTag === "preciocierre") {
@@ -619,7 +704,7 @@ function loadBrush() {
         } else if (modelTag === "preciocierre") {
             d.UltimoPrecio = +d.UltimoPrecio;
         } else if (modelTag === "variacion") {
-            return d.Variacion;
+            //return d.Variacion;
             d.Variacion = +d.Variacion;
         } else {
             return d.Cantidad;
@@ -846,7 +931,7 @@ $(function () {
     $('.selectpicker').on('change', function () {
         var selected = $(this).find("option:selected").val();
         //alert(selected);
-        sectorSelector(selected);
+        sectorSelector(selected.toLowerCase());
     });
 
 });

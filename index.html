@@ -93,7 +93,7 @@
         <div id="line" style="width:80%;margin:auto;margin-top: 10px"></div>
         <div id="viz" style="width:80%;margin:auto;margin-top: 10px"></div>
 
-        <div id="tooltip" class="hidden" >
+        <div id="tooltipA" class="hidden" >
             <span id='close' onclick='hideTooltip()'>X</span>
             <div class="row">
                 <div class="col-sm-2">
@@ -108,8 +108,27 @@
                     <button type="button" id="btnGuardar" onclick="guardarAccion()" class="btn btn-info">Guardar acción</button>
                 </div>
             </div>
-
             <div id="chart"></div>
+        </div>
+        <div id="tooltipB" class="hidden" >
+            <span id='close' onclick='hideTooltip()'>X</span>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p><strong id="website"></strong></p>
+                    <p><span id="screenshot"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p style="text-align: center;margin-top: 5px">Monto acciones: <span id="agency"></span></p>
+                    <p style="text-align: center;margin-top: 5px">Precio cierre: <span id="size"></span></p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-sm-12 col-sm-offset-4" >
+                    <button  type="button" id="btnGuardar" onclick="guardarAccion()" class="btn btn-info">Guardar acción</button>
+                </div>
+            </div>
         </div>
         <script src="js/bvc.js"></script>
     </body>
