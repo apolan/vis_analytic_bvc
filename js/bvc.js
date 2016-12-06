@@ -189,7 +189,7 @@ var mouseClick = function (d) {
 d3.csv("acciones.csv", function (data) {
     var treeData = {"key": "Precio de acciones", "values": d3.nest()
                 .key(function (d) {
-                    return d.NEMO + '123';
+                    return d.NEMO;
                 })
                 .entries(data)
     };
@@ -219,7 +219,7 @@ d3.csv("acciones.csv", function (data) {
             .attr("class", "agency-name")
             .text(function (d) {
                 if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
-                    return d.parent.key;
+                    return d.parent.key + ' ' + d.parent.VAR;
                 }
             }).style("z-index", function (d) {
         if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
