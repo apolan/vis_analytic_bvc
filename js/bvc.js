@@ -190,175 +190,148 @@ var mouseClick = function (d) {
     loadBrush();
 };
 // Se carga csv
-d3.csv("acciones.csv", function (data) {
-    var treeData = {
-        "key": "Precio de acciones",
-        "values": d3.nest()
-            .key(function (d) {
-                return d.NEMO;
+
+csvLoad()
+
+function csvLoad() {
+
+    d3.csv("acciones.csv", function (data) {
+        var treeData = {
+            "key": "Precio de acciones",
+            "values": d3.nest()
+                .key(function (d) {
+                    return d.NEMO;
+                })
+                .entries(data)
+        };
+        var node = div.datum(treeData).selectAll(".node")
+            .data(treemap.nodes)
+            .enter().append("div")
+            .attr("class", function (d) {
+                //return d.children ? "node-agency" : "node-website";
+                return d.children ? "node-agency" : "node-website";
             })
-            .entries(data)
-    };
-    var node = div.datum(treeData).selectAll(".node")
-        .data(treemap.nodes)
-        .enter().append("div")
-        .attr("class", function (d) {
-            //return d.children ? "node-agency" : "node-website";
-            return d.children ? "node-agency" : "node-website";
-        })
-        .call(position)
-        .style("border", "solid 2px black")
-        .on("click", mouseClick);
-    // Remove agency
-    d3.selectAll(".node-agency").remove();
-    d3.selectAll(".node-website")
-        .attr("id", function (d) { // Adicion id al nodo
-            return d.parent.key;
-        }).style("z-index", function (d) {
-            if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
-                return 99;
+            .call(position)
+            .style("border", "solid 2px black")
+            .on("click", mouseClick);
+        // Remove agency
+        d3.selectAll(".node-agency").remove();
+        d3.selectAll(".node-website")
+            .attr("id", function (d) { // Adicion id al nodo
+                return d.parent.key;
+            }).style("z-index", function (d) {
+                if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
+                    return 99;
+                }
+            }).style("font-size", "12pt")
+            .style("margin-top", "5px")
+            .append("div")
+            .attr("class", "agency-name")
+            .text(function (d) {
+                if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
+                    if (modelTag === 'preciocierre') {
+                        return d.parent.key + ' $' + d.PRECIOCIERRE;
+                    } else if (modelTag === 'cantidad') {
+                        return d.parent.key + ' $' + d.CANTIDAD;
+                    } else if (modelTag === 'monto') {
+                        return d.parent.key + ' $' + d.MONTO;
+                    } else if (modelTag === 'variacion') {
+                        return d.parent.key + ' $' + d.VAR;
+                    }
+                }
+            }).style("z-index", function (d) {
+                if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
+                    return 99;
+                }
+            }).style("font-size", "12pt")
+            .style("margin-top", "5px");
+
+        customeAnimation = function (option) {
+
+            var value = function () {
+                return 1;
             }
-        }).style("font-size", "12pt")
-        .style("margin-top", "5px")
-        .append("div")
-        .attr("class", "agency-name")
-        .text(function (d) {
-            if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
-                if (modelTag === 'preciocierre') {
-                    return d.parent.key + ' $' + d.PRECIOCIERRE;
-                } else if (modelTag === 'cantidad') {
-                    return d.parent.key + ' $' + d.CANTIDAD;
-                } else if (modelTag === 'monto') {
-                    return d.parent.key + ' $' + d.MONTO;
-                } else if (modelTag === 'variacion') {
-                    return d.parent.key + ' $' + d.VAR;
-                }
+
+            // Paso 1. A que segmento pertenece: fijo | continuo | subasta
+            if (modelTag === 'preciocierre') {
+                value = function (d) {
+                    if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                        return d.PRECIOCIERRE;
+                    } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                        return d.PRECIOCIERRE;
+                    } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                        return d.PRECIOCIERRE;
+                    } else {
+                        return 0;
+                    }
+                };
+            } else if (modelTag === 'cantidad') {
+                value = function (d) {
+                    if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                        return d.CANTIDAD;
+                    } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                        return d.CANTIDAD;
+                    } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                        return d.CANTIDAD;
+                    } else {
+                        return 0;
+                    }
+                };
+            } else if (modelTag === 'monto') {
+                value = function (d) {
+                    if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                        return d.MONTO;
+                    } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                        return d.MONTO;
+                    } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                        return d.MONTO;
+                    } else {
+                        return 0;
+                    }
+                };
+            } else if (modelTag === 'variacion') {
+                value = function (d) {
+                    if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                        return Math.abs(d.VAR);
+                    } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                        return Math.abs(d.VAR);
+                    } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                        return Math.abs(d.VAR);
+                    } else {
+                        return 0;
+                    }
+                };
+            } else if (modelTag === 'alfabeticamente') {
+                value = function (d) {
+                    if (sectorTag === "continuo" && d.SECTOR === "continuo") {
+                        return 1;
+                    } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
+                        return 1;
+                    } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                };
+            } else {
+                value = function (d) {
+                    return d.CANTIDAD;
+                };
             }
-        }).style("z-index", function (d) {
-            if (d.y - cellpadding === d.parent.y && d.x - cellpadding === d.parent.x) {
-                return 99;
-            }
-        }).style("font-size", "12pt")
-        .style("margin-top", "5px");
-
-    customeAnimation = function (option) {
-
-        var value = function () {
-            return 1;
-        }
-
-        // Paso 1. A que segmento pertenece: fijo | continuo | subasta
-        if (modelTag === 'preciocierre') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return d.PRECIOCIERRE;
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return d.PRECIOCIERRE;
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return d.PRECIOCIERRE;
-                } else {
-                    return 0;
-                }
-            };
-        } else if (modelTag === 'cantidad') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return d.CANTIDAD;
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return d.CANTIDAD;
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return d.CANTIDAD;
-                } else {
-                    return 0;
-                }
-            };
-        } else if (modelTag === 'monto') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return d.MONTO;
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return d.MONTO;
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return d.MONTO;
-                } else {
-                    return 0;
-                }
-            };
-        } else if (modelTag === 'variacion') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return Math.abs(d.VAR);
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return Math.abs(d.VAR);
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return Math.abs(d.VAR);
-                } else {
-                    return 0;
-                }
-            };
-            /*value = function (d) {
-             if (d.VAR < 0) {
-             return d.VAR * -1;
-             }
-             return d.VAR;
-             };/*/
-        } else if (modelTag === 'alfabeticamente') {
-            value = function (d) {
-                if (sectorTag === "continuo" && d.SECTOR === "continuo") {
-                    return 1;
-                } else if (sectorTag === "fijo" && d.SECTOR === "fijo") {
-                    return 1;
-                } else if (sectorTag === "subasta" && d.SECTOR === "subasta") {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            };
-        } else {
-            value = function (d) {
-                return d.CANTIDAD;
-            };
-        }
 
 
-        updateColor();
-        node.data(treemap.value(value).nodes)
-            .transition()
-            .duration(3500)
-            .call(position);
-    };
+            updateColor();
+            node.data(treemap.value(value).nodes)
+                .transition()
+                .duration(3500)
+                .call(position);
+        };
 
-    customeAnimation();
-    // Zoom
+        customeAnimation();
+    });
 
-    /* sectorAnimation = function (sector) {
-     if (sector === 'Continuo') {
-     value = function (d) {
-     if (d.SECTOR === 'Continuo') {
-     return d.PRECIOCIERRE;
-     }
-     };
-     } else if (sector === 'Subasta') {
-     value = function (d) {
-     if (d.SECTOR === 'Subasta') {
-     return d.PRECIOCIERRE;
-     }
-     };
-     } else if (sector === 'Fijo') {
-     value = function (d) {
-     if (d.SECTOR === 'Fijo') {
-     return d.PRECIOCIERRE;
-     }
-     };
-     }
+}
 
-     updateColor();
-     node.data(treemap.value(value).nodes)
-     .transition()
-     .duration(3500)
-     .call(position);
-     }*/
-});
 /**
  *  Metodo que esconde los diferentes tooltip de la pagina
  * @returns {undefined}
@@ -387,6 +360,7 @@ function setModel(tag) {
     hideTooltip();
     modelTag = tag;
     customeAnimation(tag);
+    csvLoad();
 }
 
 function sectorSelector(sector) {
