@@ -1,8 +1,8 @@
 /**
- * 
+ *
  * bvc.js Encargada de manejar la visualizalizacion del treemap Manejo de cambios.
  * 20161203 AFP - Adicion formula de color a partir del percentil.
- *              - Cambio del header . Adicion wiki del proyecto 
+ *              - Cambio del header . Adicion wiki del proyecto
  */
 
 
@@ -189,7 +189,7 @@ var mouseClick = function (d) {
 d3.csv("acciones.csv", function (data) {
     var treeData = {"key": "Precio de acciones", "values": d3.nest()
                 .key(function (d) {
-                    return d.NEMO;
+                    return d.NEMO + '123';
                 })
                 .entries(data)
     };
@@ -234,7 +234,7 @@ d3.csv("acciones.csv", function (data) {
             return 1;
         }
 
-        // Paso 1. A que segmento pertenece: fijo | continuo | subasta 
+        // Paso 1. A que segmento pertenece: fijo | continuo | subasta
         if (modelTag === 'preciocierre') {
             value = function (d) {
                 if (sectorTag === "continuo" && d.SECTOR === "continuo") {
@@ -339,7 +339,7 @@ d3.csv("acciones.csv", function (data) {
      }
      };
      }
-     
+
      updateColor();
      node.data(treemap.value(value).nodes)
      .transition()
@@ -406,7 +406,7 @@ function guardarAccion() {
         /*dv.onclick = function () {
          for (i = 0; i < acciones.length; i++) {
          if(acciones[i].accion === accionTag){
-         
+
          }
          }
          };*/
@@ -419,7 +419,7 @@ function guardarAccion() {
         document.getElementById("tablero_acciones").appendChild(dv);
         //$('#id' + accionTag).css('cursor', 'pointer');
     } else {
-// se debe mostrar  un mensaje que digan que no se puede agregar mas acciones  
+// se debe mostrar  un mensaje que digan que no se puede agregar mas acciones
     }
 }
 
