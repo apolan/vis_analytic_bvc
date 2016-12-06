@@ -63,10 +63,11 @@ var accionTag = "";
 var accionColorTag = "";
 var highlightColor = "red";
 var div;
+var treemap;
 
 function createTreemap() {
 
-  var treemap = d3.layout.treemap()
+  treemap = d3.layout.treemap()
       .size([width, height])
       .sticky(true)
       .padding(cellpadding)
