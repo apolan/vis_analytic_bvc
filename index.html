@@ -1,0 +1,140 @@
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/1.4.5/numeral.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="js/d3.min.js"></script>
+        <link href="css/bvc.css" rel="stylesheet" />
+        <title>bvc</title>
+    </head>
+
+    <body>
+
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Proyecto: BVC</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Propuesta</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sobre el proyecto <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://github.com/apolan/vis_analytic_bvc">Wiki</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Equipo</li>
+                                <li><a href="https://github.com/apolan/vis_analytic_bvc/wiki">Contacto</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!--/.container-fluid -->
+        </nav>
+        <div id="menu" style="margin-top:20px;margin-left: 60px">
+            <div class="row">
+                <!-- <h5 style="font-weight: bold">Segmento</h5>
+                <div style="margin-top: 10px">
+                    <label onclick="sectorSelector('Continuo');" class="radio-inline " style="font-size:11pt">
+                        <input type="radio" checked="" name="optradio">Contínuo</label>
+                    <label onclick="sectorSelector('Subasta');" class="radio-inline" style="font-size:11pt">
+                        <input type="radio" name="optradio">Subasta</label>
+                    <label onclick="sectorSelector('Fijo');" class="radio-inline" style="font-size:11pt">
+                        <input type="radio" name="optradio">Fijo</label>
+                </div> -->
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        <h5 style="font-weight: bold">Segmento</h5>
+                        <select class="selectpicker form-control">
+                            <option>Continua</option>
+                            <option>Subasta</option>
+                            <option>MGC</option>
+                            <option>ETF</option>
+                        </select>
+                    </div> 
+                    <div style="margin-top: 10px">
+                        <h5 style="font-weight: bold">Organización de acciones:</h5>
+                        <label onclick="setModel('alfabeticamente');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Alfabéticamente</label>
+                        <label onclick="setModel('cantidad');" class="radio-inline " style="font-size:11pt"><input type="radio" checked="" name="optradio">Cantidad</label>
+                        <label onclick="setModel('preciocierre');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Precio cierre</label>
+                        <label onclick="setModel('variacion');" class="radio-inline" style="font-size:11pt"><input type="radio" name="optradio">Variación</label>
+                    </div>
+                </div>
+                <div  class="col-xs-4">			
+                    <h5 style="font-weight: bold">Acciones guardadas</h5>
+                    <div id="tablero_acciones" style="display: inline">
+                        <h5 class="txt_gray">No hay acciones guardas</h5>
+                    </div>
+                </div>
+                <div  class="col-xs-4">
+                    <button id="cleanAcciones" type="button" onclick="limpiarAcciones()" class="btn btn-default">Limpiar</button>
+                    <button id="compareAcciones" type="button" onclick="compararAcciones()" class="btn btn-default">Comparar Acciones</button>
+                    <button id="btnBack" type="button" onclick="volver()" class="btn btn-default">Volver</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px ">
+                <h4 id="label" style="font-weight:bold ">Visualización de las acciones de la Bolsa de Valores de Colombia</h4>
+            </div>
+        </div>
+        <div id="line" style="width:80%;margin:auto;margin-top: 10px"></div>
+        <div id="viz" style="width:80%;margin:auto;margin-top: 10px"></div>
+
+        <div id="tooltipA" class="hidden" >
+            <span id='close' onclick='hideTooltip()'>X</span>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p><strong id="website"></strong></p>
+                    <p><span id="screenshot"></span></p>
+                </div>
+                <div class="col-sm-4">
+                    <p>Monto acciones: <span id="agency"></span></p>
+                    <p>Precio cierre: <span id="size"></span></p>
+                    <p>Variación: <span id="var"></span></p>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" id="btnGuardar" onclick="guardarAccion()" class="btn btn-info">Guardar acción</button>
+                </div>
+            </div>
+            <div class="row">
+              <h5 style="text-align: center; font-weight: bold">Visualizacion de <span id="chatTitle"></span></h5>
+            </div>
+            <div id="chart"></div>
+        </div>
+        <div id="tooltipB" class="hidden" >
+            <span id='close' onclick='hideTooltip()'>X</span>
+            <div class="row">
+                <div class="col-sm-2">
+                    <p><strong id="website"></strong></p>
+                    <p><span id="screenshot"></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p style="text-align: center;margin-top: 5px;font-weight: bold">Descripción Acción: <span id="agencyB"></span></p>
+                    <p style="text-align: center;margin-top: 5px">Razón Social: <span id="sizeA"></span></p>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 15px">
+                <div class="col-sm-12 col-sm-offset-4" >
+                    <button  type="button" id="btnGuardar" onclick="guardarAccion()" class="btn btn-info">Guardar acción</button>
+                </div>
+            </div>
+        </div>
+        <script src="js/bvc.js"></script>
+    </body>
+</html>
