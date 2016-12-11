@@ -1,0 +1,175 @@
+body {
+    font-family: "Helvetica", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    background-color: white;
+}
+
+p, .formHeading, .agency-name  {
+    color: white
+}
+
+.formHeading {
+
+    font-size: 18px;
+
+}
+
+form {
+    position: absolute;
+    color: white
+}
+
+
+#close {
+    float:right;
+    color: white;
+    display:inline-block;
+    padding:2px 5px;
+    background: red;
+    cursor: pointer;
+}
+
+.node-website, .node-agency {
+    font: 10px sans-serif;
+    line-height: 12px;
+    overflow: hidden;
+    position: absolute;
+    text-indent: 2px;
+    cursor: pointer;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.node-agency,  .agency-name {
+    pointer-events: none;
+}
+
+#tooltipA {
+    position: absolute;
+    width: 650px;
+    height: 610px;
+    padding: 10px;
+    z-index: 1;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#tooltipA.hidden {
+    display: none;
+}
+
+#tooltipA p {
+    margin: 0;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#tooltipB {
+    position: absolute;
+    width: 400px;
+    height: 140px;
+    padding: 10px;
+    z-index: 1;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#tooltipB.hidden {
+    display: none;
+}
+
+#tooltipB p {
+    margin: 0;
+    color: black;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+#bdy_acciones {
+    margin: auto;
+    width: 50%;
+}
+
+
+svg {
+  font: 10px sans-serif;
+}
+
+.area {
+  fill: #052840;
+  clip-path: url(#clip);
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+  clip-path: url(#clip);
+}
+
+rect.pane {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+
+.txt_gray{
+    color:gray;
+    font-weight: 200;
+}
+
+
+
+.accionAdd{
+    color:white;
+    font-size: 10pt;
+    text-align: center;
+}
+.accionDiv{
+    width: 100px;
+    heigt: 12px;
+    
+}
+
+
+path { 
+    
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;}
